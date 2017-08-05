@@ -1,0 +1,148 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title><ui:insert name="titulo">Casa do Candango</ui:insert></title>
+	<h:outputStylesheet library="css" name="sistema.css" />
+
+	<script>
+			// Tradutor do Calendario
+		            PrimeFaces.locales['pt'] = {
+		                closeText: 'Fechar',
+		                prevText: 'Anterior',
+		                nextText: 'Próximo',
+		                currentText: 'Começo',
+		                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+		                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+		                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+		                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+		                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+		                weekHeader: 'Semana',
+		                firstDay: 0,
+		                isRTL: false,
+		                showMonthAfterYear: false,
+		                yearSuffix: '',
+		                timeOnlyTitle: 'Só Horas',
+		                timeText: 'Tempo',
+		                hourText: 'Hora',
+		                minuteText: 'Minuto',
+		                secondText: 'Segundo',
+		                ampm: false,
+		                month: 'Mês',
+		                week: 'Semana',
+		                day: 'Dia',
+		                allDayText: 'Todo o Dia'
+		            };
+		        </script>
+</h:head>
+
+
+<h:body styleClass="sistema">
+
+	<header>
+	<div class="ui-grid ui-grid-responsive" style="color-background: #000000">
+		<div class="ui-grid-row">
+			<div class="ui-grid-col-4">
+			<h:link>
+				<a href="http://localhost:8083/CasaCandango/index.xhtml"><h:graphicImage
+						height="50px" library="images" name="CasaDoCandango.png" /></a>
+			</h:link>
+			</div>
+			<div class="ui-grid-col-5" align="right"><p/><h:graphicImage library="images"
+				 name="Usuario.png" height="17px"/></div>
+			<div style="clear: both" />
+			<div class="ui-grid-col-2" align="center"><p/>
+				<p:outputLabel style="font-size: 12pt"
+				value="  #{autenticacaoBean.usuarioLogado.funcionario.nome}"/></div>
+			<div class="ui-grid-col-1">
+				<h:form>
+					<p:menubar style="width:60px">
+						<p:menuitem icon="ui-icon-extlink  " value="Sair" style="width: 50px"
+						 action="#{autenticacaoBean.sair()}"></p:menuitem>
+					</p:menubar>
+				</h:form>
+			</div>		
+	</div>
+	</div>
+	
+	</header>
+	 <ui:insert name="corpoCentro">
+	 <div class="ui-grid ui-grid-responsive">
+		<div class="ui-grid-row">
+			<div class="ui-grid-col-2" align="center">
+						
+			<ui:insert name="corpoCentro">
+							<h:form>
+								<br/><br/><br/>
+								<p:growl id="messages" showDetail="true" />
+								<font size="5" style="line-heigth: 20px">Menu</font>
+								<p:separator />
+								<p:slideMenu style="width:220px; heigth:600px">
+									<p:submenu label="Cadastro/Consulta" icon="ui-icon-disk">
+										<p:menuitem value="Funcionários"
+											url="http://localhost:8080/CasaCandango/Funcionario.xhtml" />
+											<p:menuitem value="Responsável"
+											url="http://localhost:8080/CasaCandango/Responsavel.xhtml" />
+										<p:menuitem value="Idoso"
+											url="http://localhost:8080/CasaCandango/Idoso.xhtml" />
+											<p:menuitem value="Ocorrência"
+											url="http://localhost:8080/CasaCandango/Ocorrencia.xhtml" />	
+										<p:menuitem value="Usuários"
+											url="http://localhost:8080/CasaCandango/Usuario.xhtml" />
+									</p:submenu>
+									
+									<p:submenu label="Medicamentos" icon="ui-icon-newwin">
+										<p:menuitem value="Cadastro" />
+										<p:menuitem value="Consulta" />
+									</p:submenu>
+									<p:separator />
+									<p:submenu label="Agenda" icon="ui-icon-calendar">
+										<p:menuitem value="Calendário" url="http://www.prime.com.tr" />
+										<p:menuitem value="Medicamentos" url="http://www.primefaces.org" />
+									</p:submenu>
+								</p:slideMenu>
+		
+								<br/><br/><br/>
+								
+								<font size="5" style="line-heigth: 20px">Marcações</font>
+								<p:separator title="Marcações" />
+						
+								<p:calendar  locale="pt" pattern="dd/mm/yyyy" id="inline" value="#{calendarView.date1}"
+								mode="inline" />
+							</h:form>
+				</ui:insert>
+		</div>
+			<div class="ui-grid-col-10" align="center">
+				<br/><br/><br/><br/><br/><br/>
+				<h:graphicImage
+						style="width: 500px; margin-left: 180px
+		        		;margin-top: 70px"
+						library="images" name="logoSemOpacidade.png" />
+			</div>
+		</div>
+	</div>
+	</ui:insert>
+	
+	<div style="clear: both" />
+	
+	<footer>
+		<div class="ui-grid ui-grid-responsive">
+			<div class="ui-grid-row">
+				<div class="ui-grid-col-3" align="center">
+					<p:clock pattern="HH:mm:ss" mode="server" autoSync="true"/>
+				</div>
+				<div class="ui-grid-col-3"></div>
+				<div class="ui-grid-col-3"></div>
+				<div class="ui-grid-col-3" align="center">
+					<p:clock pattern="dd/MM/yyyy" mode="server" />
+				</div>
+			</div>
+		</div>
+	</footer>
+	</h:body>
+</html>

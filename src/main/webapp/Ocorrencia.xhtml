@@ -1,0 +1,216 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpoCentro">
+		<h:head>
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+			<title>Idoso</title>
+
+
+		</h:head>
+		<p:growl id="messagem" />
+
+		<h:form id="tabela" onmousemove="#{autenticacaoBean.controle()}">
+
+			<p:panel header="Ocorrencia">
+				<p:toolbar id="botoes" >
+					<p:toolbarGroup>
+						<p:commandButton style="horizontal-align:left"
+						    value="Novo"
+							actionListener="#{ocorrenciaBean.listarCombos()}"
+							update=":messagem :forOcorrencia:painel"
+							process="@this"
+							oncomplete="PF('ocorrencia').show()">
+						</p:commandButton>
+						
+						 <!-- fazer separação de botões  -->
+						 <span  class="ui-separator">
+						 	 <span class="ui-icon ui-icon-grip-dotted-vertical"></span>
+						 </span>
+						 
+						 <p:commandButton icon="ui-icon-pencil" title="Editar"
+										 disabled="#{ocorrenciaBean.ocorrenciaSelecionada ==null}"
+										 update=":messagem :forOcorrenciaEditar:painel"
+										 oncomplete="PF('ocorrenciaEditar').show()"
+										 process="@this"
+										 actionListener="#{ocorrenciaBean.editar()}"> 
+						
+						<f:setPropertyActionListener value="#{ocorrenciaBean.ocorrenciaSelecionada}" target="#{ocorrenciaBean.ocorrencia}"></f:setPropertyActionListener>
+						</p:commandButton>					
+
+					</p:toolbarGroup>
+				</p:toolbar>
+
+				<p:dataTable emptyMessage="Nenhum registro encontrado"
+							value="#{ocorrenciaBean.ocorrencias}"
+							var="ocorren"
+						    paginator="true" 
+						    rows="15"
+						    lazy="true"
+							scrollable="true" 
+							selectionMode="single"
+							selection="#{ocorrenciaBean.ocorrenciaSelecionada}"
+							rowKey="#{ocorren.codigo}">
+							
+					<p:ajax event="rowSelect"     update=":tabela:botoes"></p:ajax>
+					<p:ajax event="rowUnselect"   update=":tabela:botoes"></p:ajax>
+					
+					<p:column headerText="Nome do Idoso" width="200"
+						style="text-align:left">
+						<h:outputText value="#{ocorren.idoso.nome}" />
+					</p:column>
+
+					<p:column headerText="Funcionário" width="170"
+						style="text-align:left">
+						<h:outputText value="#{ocorren.funcionario.nome}" />
+					</p:column>
+
+					<p:column headerText="Data da ocorrência" width="200"
+						style="text-align:left">
+						<h:outputText value="#{ocorren.data}">
+						<f:convertDateTime locale="pt"/>
+						</h:outputText>
+					</p:column>
+					
+				</p:dataTable>
+
+			</p:panel>
+
+		</h:form>
+
+
+		<!--  a partir daqui está definido o Dialog de cadastrar uma ocorrencia -->
+
+		<p:dialog header="Ocorrencia" widgetVar="ocorrencia" draggable="false"
+			resizable="false" modal="true">
+
+			<h:form id="forOcorrencia">
+
+				<h:panelGrid columns="1" id="painel" style="width :100%"
+					margin-top="20px">
+
+					<p:outputLabel value="Nome do Idoso:"></p:outputLabel>
+					<p:selectOneMenu value="#{ocorrenciaBean.idoso}" filter="true"
+						converter="omnifaces.SelectItemsConverter" id="ido"
+						required="true" requiredMessage="Você deve selecionar o Idoso ">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione o Idoso">
+						</f:selectItem>
+						<f:selectItems value="#{ocorrenciaBean.idosos}" var="ido"
+							itemLabel="#{ido.nome}" itemValue="#{ido}">
+						</f:selectItems>
+					</p:selectOneMenu>
+
+
+					<p:outputLabel value="Nome do Funcionário:"></p:outputLabel>
+					<p:selectOneMenu value="#{ocorrenciaBean.funcionario}"
+						filter="true" converter="omnifaces.SelectItemsConverter"
+						id="idoso" required="true"
+						requiredMessage="Você deve selecionar o Funcionário">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione o Funcioário ">
+						</f:selectItem>
+						<f:selectItems value="#{ocorrenciaBean.funcionarios}" var="func"
+							itemLabel="#{func.nome}" itemValue="#{func}">
+						</f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Data"></p:outputLabel>
+					<p:calendar pattern="dd/MM/yyyy" locale="pt" lreadonlyInput="true" value="#{ocorrenciaBean.ocorrencia.data}"></p:calendar>
+
+					<p:outputLabel value="Descrição"></p:outputLabel>
+					<br />
+					<p:inputTextarea rows="20" cols="70" autoResize="false" value="#{ocorrenciaBean.ocorrencia.descricao}"></p:inputTextarea>
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{ocorrenciaBean.salvar()}"
+						update="messagem :forOcorrencia:painel :tabela">
+					</p:commandButton>
+					
+					<p:commandButton 
+						value="Fechar"
+						actionListener="#{idosoBean.limparTudo()}"
+						oncomplete="PF('ocorrencia').hide()">
+					</p:commandButton>
+				</h:panelGrid>
+
+			</h:form>
+
+		</p:dialog>
+		
+		
+		<!--  a partir daqui está definido o Dialog para Editar  uma ocorrencia -->
+
+		<p:dialog header="Ocorrencia" widgetVar="ocorrenciaEditar" draggable="false"
+			resizable="false" modal="true">
+
+			<h:form id="forOcorrenciaEditar">
+
+				<h:panelGrid columns="1" id="painel" style="width :100%"
+					margin-top="20px">
+
+					<p:outputLabel value="Nome do Idoso:"></p:outputLabel>
+					<p:selectOneMenu value="#{ocorrenciaBean.ocorrencia.idoso}" filter="true"
+						converter="omnifaces.SelectItemsConverter" id="ido"
+						required="true" requiredMessage="Você deve selecionar o Idoso ">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione o Idoso">
+						</f:selectItem>
+						<f:selectItems value="#{ocorrenciaBean.idosos}" var="ido"
+							itemLabel="#{ido.nome}" itemValue="#{ido}">
+						</f:selectItems>
+					</p:selectOneMenu>
+
+
+					<p:outputLabel value="Nome do Funcionário:"></p:outputLabel>
+					<p:selectOneMenu value="#{ocorrenciaBean.ocorrencia.funcionario}"
+						filter="true" converter="omnifaces.SelectItemsConverter"
+						id="idoso" required="true"
+						requiredMessage="Você deve selecionar o Funcionário">
+						<f:selectItem noSelectionOption="true"
+							itemLabel="Selecione o Funcioário ">
+						</f:selectItem>
+						<f:selectItems value="#{ocorrenciaBean.funcionarios}" var="func"
+							itemLabel="#{func.nome}" itemValue="#{func}">
+						</f:selectItems>
+					</p:selectOneMenu>
+
+					<p:outputLabel value="Data"></p:outputLabel>
+					<p:calendar pattern="dd/MM/yyyy" locale="pt" lreadonlyInput="true" value="#{ocorrenciaBean.ocorrencia.data}"></p:calendar>
+
+					<p:outputLabel value="Descrição"></p:outputLabel>
+					<br />
+					<p:inputTextarea rows="20" cols="70" autoResize="false" value="#{ocorrenciaBean.ocorrencia.descricao}"></p:inputTextarea>
+
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:commandButton value="Salvar"
+						actionListener="#{ocorrenciaBean.alterar()}"
+						oncomplete="PF('ocorrenciaEditar').hide()" 
+						update="messagem :forOcorrenciaEditar:painel :tabela">
+					</p:commandButton>
+					
+					<p:commandButton value="Fechar"
+						actionListener="#{idosoBean.limparTudo()}"
+						oncomplete="PF('ocorrenciaEditar').hide()">
+					</p:commandButton>
+					
+					
+				</h:panelGrid>
+
+			</h:form>
+
+		</p:dialog>
+
+	</ui:define>
+
+</ui:composition>

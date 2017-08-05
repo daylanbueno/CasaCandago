@@ -1,0 +1,33 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+	<h:outputStylesheet library="css" name="sistema.css"></h:outputStylesheet>
+	<h:head>
+		<h:body>
+		<!--  -->
+			<p:growl id="mensagem"/>
+				<p:dialog header="Entre com usuário e senha" closable="false"
+				draggable="false" resizable="false" modal="true" visible="true">
+				<h:form>
+					<h:panelGrid columns="2" styleClass="grid-login">
+						<p:outputLabel for="login" value="Usuário: " />
+						<p:inputText id="login" size="30" requiredMessage="O usuário 
+						é obrigatório." required="true" value="#{autenticacaoBean.usuario.login}"/>
+						
+						<p:outputLabel for="senha" value="Senha:"/>
+						<p:password id="senha" size="30" requiredMessage="A senha é	obrigatória"
+						required="true" value="#{autenticacaoBean.usuario.senha}"/>
+						
+						<h:panelGroup/>
+						<p:commandButton value="Enviar" update=":mensagem" 
+						actionListener="#{autenticacaoBean.autenticar()}"/>
+					</h:panelGrid>
+				</h:form>
+				</p:dialog>
+		</h:body>
+	</h:head>
+</html>
