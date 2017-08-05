@@ -45,7 +45,7 @@ footer {
 h1 {
 	font-size: 24px;
 	font-weight: 500;
-	padding: 0px;
+	padding: 6px;
 	margin: 0px;
 }
 
@@ -60,6 +60,16 @@ h1 {
 	border-radius: 8px;
 	border: 1px solid #ccc;
 	margin-top: 8px;
+	padding: 10px;
+}
+.forMulario{
+	margin-top: 5%;
+	margin-left: 2%;
+	margin-right: 2%;
+	margin-bottom: 2%;
+	padding: 5px;
+}
+td{
 	padding: 10px;
 }
 	
