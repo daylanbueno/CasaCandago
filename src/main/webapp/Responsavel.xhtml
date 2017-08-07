@@ -42,35 +42,40 @@
 		</h:head>
 		<p:growl id="messagem" />
 
+		<p:panel header="Filtros da pesquisa">
+			<h:panelGrid columns="4" >
+				<p:outputLabel styleClass="estidoLetra" value="Nome:"/>
+				<p:outputLabel value="#{responsavelBean.responsaveldto.nome}"/>
+				
+				<p:outputLabel styleClass="estidoLetra"  value="CPF:"/>
+				<p:outputLabel value="#{responsavelBean.responsaveldto.cpf}"/>
+				
+				<p:outputLabel styleClass="estidoLetra"  value="Telefone:"/>
+				<p:outputLabel value="#{responsavelBean.responsaveldto.telFix}"/>
+				
+				<p:outputLabel styleClass="estidoLetra" value="Celular:"/>
+				<p:outputLabel value="#{responsavelBean.responsaveldto.celular}"/>
+				
+				<p:outputLabel styleClass="estidoLetra" value="Estado:"/>
+<!-- 				<p:outputLabel value="#{responsavelBean.responsaveldto.nome}"/> -->
+			</h:panelGrid>
+		</p:panel>	
+		
 		<h:form id="tabela" onmousemove="#{autenticacaoBean.controle()}">
-
 			<p:panel header="Cadastro de Responsáveis">
 				<p:toolbar id="botoes">
 					<p:toolbarGroup>
-						<p:commandButton style="horizontal-align:left" value="Novo"
-							oncomplete="PF('responsavel').show()"
-							actionListener="#{responsavelBean.listaCombos()}"
-							update=":forResponsavel:painel">
-						 </p:commandButton>
-						 
-						   <!-- fazer separação de botões  -->
-						 <span  class="ui-separator">
-						  <span class="ui-icon ui-icon-grip-dotted-vertical"></span>
-						 </span>
-						 
-						 <p:commandButton 
-							icon="ui-icon-pencil" 
-							title="Editar"
-							oncomplete="PF('responsavelEditar').show()"
-							disabled="#{responsavelBean.responsavelSelecionado ==null}"
-							update=":messagem :forResponsavelEditar:painel :tabela"
-							process="@this"
-							actionListener="#{responsavelBean.editar()}"
-							>
-						 <f:setPropertyActionListener value="#{responsavelBean.responsavelSelecionado}" target="#{responsavelBean.responsavel}" />
-						 </p:commandButton>
-						 
-						 
+<!-- 						 <p:commandButton  -->
+<!-- 							icon="ui-icon-pencil"  -->
+<!-- 							title="Editar" -->
+<!-- 							oncomplete="PF('responsavelEditar').show()" -->
+<!-- 							disabled="#{responsavelBean.responsavelSelecionado ==null}" -->
+<!-- 							update=":messagem :forResponsavelEditar:painel :tabela" -->
+<!-- 							process="@this" -->
+<!-- 							actionListener="#{responsavelBean.editar()}" -->
+<!-- 							> -->
+<!-- 						 <f:setPropertyActionListener value="#{responsavelBean.responsavelSelecionado}" target="#{responsavelBean.responsavel}" /> -->
+<!-- 						 </p:commandButton> -->
 					</p:toolbarGroup>
 				</p:toolbar>
 
@@ -78,12 +83,14 @@
 							 value="#{responsavelBean.responsaveis}" 
 							 var="resp" 
 							 paginator="true"
+							 paginatorPosition="bottom"
 		  					 rows="15" 
 		  					 lazy="true"
 		  					 scrollable="true"
 		  					 selectionMode="single"
 							 rowKey="#{resp.codigo}"
 							 resizableColumns="true"
+							 
 							 liveResize="true"
 							 selection="#{responsavelBean.responsavelSelecionado}"
 							 >

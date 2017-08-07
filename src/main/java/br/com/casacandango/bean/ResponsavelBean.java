@@ -223,8 +223,13 @@ public class ResponsavelBean {
 		
 	}
 	
-	public void findResponsavelByFilter(){
+	public String findResponsavelByFilter(){
 		responsaveis =	responsaveldao.findResponsavelByFilter(getResponsaveldto());
+		if(responsaveis.size()>0){
+			return "Responsavel.xhtml";
+		}else{
+			return "";
+		}
 	}
 	
 	
