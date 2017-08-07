@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;
-
 import org.omnifaces.util.Messages;
 
 
 import br.com.casacandango.dao.CidadeDao;
 import br.com.casacandango.dao.EstadoDao;
 import br.com.casacandango.dao.ResponsavelDao;
+import br.com.casacandango.dto.ResponsavelDto;
 import br.com.casacandango.modelo.Cidade;
 import br.com.casacandango.modelo.Contato;
 import br.com.casacandango.modelo.Documento;
@@ -21,7 +21,7 @@ import br.com.casacandango.modelo.Estado;
 import br.com.casacandango.modelo.Responsavel;
 
 @ManagedBean
-@ViewScoped
+@ApplicationScoped
 public class ResponsavelBean {
 	
 	private Estado estado = new Estado();
@@ -39,6 +39,8 @@ public class ResponsavelBean {
 	private Contato contato = new Contato();
 	private Endereco endereco = new Endereco();
 	private Documento documento  = new Documento();
+	
+	private ResponsavelDto responsaveldto;
 	
 	
 	public Estado getEstado() {
@@ -130,7 +132,19 @@ public class ResponsavelBean {
 		this.responsaveis = responsaveis;
 	}
 	
-	
+	public ResponsavelDto getResponsaveldto() {
+		if(responsaveldto ==null){
+			responsaveldto = new ResponsavelDto();
+		}
+		return responsaveldto;
+	}
+
+
+	public void setResponsaveldto(ResponsavelDto responsaveldto) {
+		this.responsaveldto = responsaveldto;
+	}
+
+
 	public void limpar(){
 		cidades = new ArrayList<>();
 		estados = new ArrayList<>();
@@ -158,21 +172,7 @@ public class ResponsavelBean {
 		}
 
 	}
-	
-	@PostConstruct
-	public void listaCombos() {
-		try {
-			estados = estadodao.listar();
-			for(Estado esta : estados){
-				System.out.println(esta.getNome());
-			}
-		} catch (RuntimeException e) {
-			Messages.addGlobalError("Erro os lista para os combos");
-			e.printStackTrace();
-		}
 
-	}
-	
 	
 	public void salvar(){
 		try {
@@ -193,11 +193,13 @@ public class ResponsavelBean {
 	}
 	
 	public void editar(){
-		listaCombos();
+		carregarEstados();
 		this.responsavel=responsavelSelecionado;
 	
 	}
-	
+	public void carregarEstados(){
+	 estados =	estadodao.listar();
+	}
 	public void alterarResponsavel(){
 		try {
 			responsaveldao.merge(responsavel);
@@ -211,15 +213,18 @@ public class ResponsavelBean {
 	
 	@PostConstruct 
 	public void listar(){
-		
 		try {
+			carregarEstados();
 			responsaveis = responsaveldao.listar();
-			System.out.println("Lista de responsáveis carregada ");
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Erro ao carregar a lista de Responsáveis ");
 			e.printStackTrace();
 		}
 		
+	}
+	
+	public void findResponsavelByFilter(){
+		responsaveis =	responsaveldao.findResponsavelByFilter(getResponsaveldto());
 	}
 	
 	

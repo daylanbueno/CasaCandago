@@ -8,73 +8,41 @@
 	<ui:define name="corpoCentro">
 		<h:head>
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-			<title>Responsável</title>
-			<script>
-	// Tradutor do Calendario
-            PrimeFaces.locales['pt'] = {
-                closeText: 'Fechar',
-                prevText: 'Anterior',
-                nextText: 'Próximo',
-                currentText: 'Começo',
-                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
-                weekHeader: 'Semana',
-                firstDay: 0,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: '',
-                timeOnlyTitle: 'Só Horas',
-                timeText: 'Tempo',
-                hourText: 'Hora',
-                minuteText: 'Minuto',
-                secondText: 'Segundo',
-                ampm: false,
-                month: 'Mês',
-                week: 'Semana',
-                day: 'Dia',
-                allDayText: 'Todo o Dia'
-            };
-        </script>
+			<title>Pesquisar responsável</title>
 		</h:head>
 		<p:growl id="messagem" />
 
-
-
 		<!--  a partir daqui está definido o Dialog de cadastrar o funcinário -->
-		 <p:panel  styleClass="forMulario"   id="basic" header="Filtro da pesquisa" footer="Movie Details">
+		 <p:panel  styleClass="forMulario"   id="basic" header="Filtro da pesquisa" footer="">
 	        <h:form id="forResponsavel">
 					<h:panelGrid columns="4" id="painel" style="width :100%"
 						margin-top="20px">
 	
 						<p:outputLabel value="Nome:" for="nome"></p:outputLabel>
-						<p:inputText maxlength="50" size="40" id="nome" required="true"
-							value="#{responsavelBean.responsavel.nome}"
+						<p:inputText maxlength="50" size="40" id="nome" required="false"
+							value="#{responsavelBean.responsaveldto.nome}"
 							requiredMessage="Preencha o campo nome "></p:inputText>
 	
 	
 						<p:outputLabel value="CPF:" for="cpf"></p:outputLabel>
-						<p:inputMask mask="999.999.999-99" id="cpf" required="true"
-							value="#{responsavelBean.documento.cpf}"
+						<p:inputMask mask="999.999.999-99" id="cpf"
+							value="#{responsavelBean.responsaveldto.cpf}"
 							requiredMessage="Preencha o campo CPF"></p:inputMask>
 	
 	
 						<p:outputLabel value="Fone Fixo:" for="fone"></p:outputLabel>
-						<p:inputMask mask="(99)9999-9999" id="fone" required="true" requiredMessage="Preencha  o campo Fone fixo"
-							value="#{responsavelBean.contato.telFix}"></p:inputMask>
+						<p:inputMask mask="(99)9999-9999" id="fone" required="false" requiredMessage="Preencha  o campo Fone fixo"
+							value="#{responsavelBean.responsaveldto.telFix}"></p:inputMask>
 	
 						<p:outputLabel value="Celular:" for="cel"></p:outputLabel>
-						<p:inputMask mask="(99)9999-9999"  id="cel" required="true" requiredMessage="Preencha o campo Celular"
-							value="#{responsavelBean.contato.celular}"></p:inputMask>
+						<p:inputMask mask="(99)9999-9999"  id="cel" required="false" requiredMessage="Preencha o campo Celular"
+							value="#{responsavelBean.responsaveldto.celular}"></p:inputMask>
 	
 	
 	
 						<p:outputLabel value="Estado:" for="estado"></p:outputLabel>
 						<p:selectOneMenu converter="omnifaces.SelectItemsConverter"
-						required="true" id="estado" requiredMessage="Você deve escolher um estado"
+					       id="estado" requiredMessage="Você deve escolher um estado"
 							value="#{responsavelBean.estado}">
 							<f:selectItem noSelectionOption="true"
 								itemLabel="Selecione um estado">
@@ -89,15 +57,18 @@
 	
 					<h:panelGrid styleClass="botoesFiltro" columns="2" style="margin-right:">
 						<p:commandButton value="Pesquisar"
-							action="#{responsavelBean.salvar()}"></p:commandButton>
-						<p:commandButton value="Limpar"></p:commandButton>
+										 ajax="false"	
+										 action="#{responsavelBean.findResponsavelByFilter()}">
+						 </p:commandButton>
+						<p:commandButton action="#{responsavelBean.limpar()}" 
+										 ajax="false"
+										 value="Limpar">
+												 	
+						</p:commandButton>
 					</h:panelGrid>
 	
 				</h:form>
-        
   		 </p:panel>
-	
-
 	</ui:define>
 
 </ui:composition>

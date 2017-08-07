@@ -45,7 +45,7 @@
 
 
 		<!--  a partir daqui está definido o Dialog de cadastrar o funcinário -->
-		 <p:panel  styleClass="forMulario"   id="basic" header="Funcionários" footer="Movie Details">
+		 <p:panel  styleClass="forMulario"   id="basic" header="Responsáveis" footer="">
 	        <h:form id="forResponsavel">
 					<h:panelGrid columns="4" id="painel" style="width :100%"
 						margin-top="20px">
@@ -125,110 +125,15 @@
 	
 					</h:panelGrid>
 	
-					<h:panelGrid columns="2">
+					<h:panelGrid columns="2" styleClass="botoesalvar">
 						<p:commandButton value="Salvar"
 							action="#{responsavelBean.salvar()}"
 							update=":messagem :forResponsavel:painel"></p:commandButton>
-						<p:commandButton value="Fechar" update=":forResponsavel:painel"
-							oncomplete="PF('responsavel').hide()"></p:commandButton>
+						<p:button value="Pesquisar"  outcome="PesquisarResponsavel" ></p:button>
 					</h:panelGrid>
 	
 				</h:form>
-        
   		 </p:panel>
-		
-
-			
-<!--  a partir daqui está definido o Dialog de editar o responsável -->
-
-		<p:dialog header="Responsável" widgetVar="responsavelEditar"
-			draggable="false" resizable="false" modal="true">
-
-			<h:form id="forResponsavelEditar">
-				<h:panelGrid columns="4" id="painel" style="width :100%"
-					margin-top="20px">
-
-					<p:outputLabel value="Nome:" for="nome"></p:outputLabel>
-					<p:inputText maxlength="50" size="40" id="nome" required="true"
-						value="#{responsavelBean.responsavel.nome}"
-						requiredMessage="Preencha o campo nome "></p:inputText>
-
-
-					<p:outputLabel value="CPF:" for="cpf"></p:outputLabel>
-					<p:inputMask mask="999.999.999-99" id="cpf" required="true"
-						value="#{responsavelBean.responsavel.documento.cpf}"
-						requiredMessage="Preencha o campo CPF"></p:inputMask>
-
-					<p:outputLabel value="RG:" for="rg"></p:outputLabel>
-					<p:inputMask mask="9.999.999" id="rg" required="true"
-						value="#{responsavelBean.responsavel.documento.rg}"
-						requiredMessage="Preencha o campo rg"></p:inputMask>
-
-					<p:outputLabel value="Fone Fixo:" for="fone"></p:outputLabel>
-					<p:inputMask mask="(99)9999-9999" id="fone" required="true" requiredMessage="Preencha  o campo Fone fixo"
-						value="#{responsavelBean.responsavel.contato.telFix}"></p:inputMask>
-
-					<p:outputLabel value="Celular:" for="cel"></p:outputLabel>
-					<p:inputMask mask="(99)9999-9999"  id="cel" required="true" requiredMessage="Preencha o campo Celular"
-						value="#{responsavelBean.responsavel.contato.celular}"></p:inputMask>
-
-					<p:outputLabel value="E-mail:"></p:outputLabel>
-					<p:inputText maxlength="50" size="40"
-						value="#{responsavelBean.responsavel.contato.email}"></p:inputText>
-
-
-
-					<p:outputLabel value="Logradouro:" for="logradouro" ></p:outputLabel>
-					<p:inputText maxlength="50" size="40" id="logradouro" required="true" requiredMessage="Preecha o campo Logradouro"
-						value="#{responsavelBean.responsavel.endereco.logradouro}"></p:inputText>
-
-					<p:outputLabel value="Número:"></p:outputLabel>
-					<p:inputText maxlength="50" size="10"
-						value="#{responsavelBean.responsavel.endereco.numero}"></p:inputText>
-
-					<p:outputLabel value="Complemento:"></p:outputLabel>
-					<p:inputText maxlength="50" size="30"
-						value="#{responsavelBean.responsavel.endereco.complemento}"></p:inputText>
-
-					<p:outputLabel value="Bairro:" for="bairro"></p:outputLabel>
-					<p:inputText maxlength="50" size="40" id="bairro" required="true" requiredMessage="Preencha o campo Bairro"
-						value="#{responsavelBean.responsavel.endereco.rua}"></p:inputText>
-
-
-					<p:outputLabel value="Estado:" for="estado"></p:outputLabel>
-					<p:selectOneMenu converter="omnifaces.SelectItemsConverter"
-					required="true" id="estado" requiredMessage="Você deve escolher um estado"
-						value="#{responsavelBean.responsavel.endereco.cidade.estado}">
-						<f:selectItem noSelectionOption="true"
-							itemLabel="Selecione um estado">
-						</f:selectItem>
-						<f:selectItems value="#{responsavelBean.estados}" var="estado"
-							itemLabel="#{estado.nome}" itemValue="#{estado}">
-						</f:selectItems>
-						
-					</p:selectOneMenu>
-
-
-				</h:panelGrid>
-
-				<h:panelGrid columns="2">
-					<p:commandButton value="Salvar"
-						action="#{responsavelBean.alterarResponsavel()}"
-						update=":messagem :forResponsavelEditar:painel">
-					</p:commandButton>
-						
-					<p:commandButton value="Fechar" update=":forResponsavelEditar:painel"
-						oncomplete="PF('responsavelEditar').hide()" 
-						process="@this">
-					</p:commandButton>
-					
-				</h:panelGrid>
-
-			</h:form>
-
-		</p:dialog>
-
-
 	</ui:define>
 
 </ui:composition>
