@@ -49,10 +49,21 @@ public class ResponsavelDao extends GenericDao<Responsavel>{
 	  hql.append("SELECT resp FROM Responsavel resp ");
 	 
 	  if(responsaveldto.getNome()!=null || !responsaveldto.getNome().isEmpty()){
-		  hql.append("WHERE resp.nome like  :pNome ");
-	  }	
+		  hql.append(" WHERE resp.nome like  :pNome ");
+	  }
+	  
+	  if(responsaveldto.getNome()!=null || !responsaveldto.getNome().isEmpty()){
+		  hql.append(" join fethc resp.documento.cpf where :pCpf");
+	  }
+	  
 	  Query query = sessao.createQuery(hql.toString());
-	  query.setParameter("pNome","%"+responsaveldto.getNome()+"%");
+	  if(responsaveldto.getNome()!=null && !responsaveldto.getNome().isEmpty()){
+		  query.setParameter("pNome","%"+responsaveldto.getNome()+"%");
+	  }
+	 
+	  if(responsaveldto.getCpf()!=null && !responsaveldto.getCpf().isEmpty()){
+		  query.setParameter("pCpf",responsaveldto.getNome());
+	  }
 	  return query.list();
 	}
 	
