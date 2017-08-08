@@ -65,6 +65,9 @@ public class ResponsavelDto implements Serializable {
 
 	
 	public Estado getEstado() {
+		if(estado==null){
+			estado = new Estado();
+		}
 		return estado;
 	}
 

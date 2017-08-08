@@ -49,6 +49,9 @@ public class ResponsavelDao extends GenericDao<Responsavel>{
 	  hql.append(" SELECT resp FROM Responsavel resp ");
 	  hql.append(" LEFT JOIN FETCH resp.documento doc ");
 	  hql.append(" LEFT JOIN FETCH resp.contato cont ");
+	  hql.append(" LEFT JOIN FETCH resp.endereco endereco ");
+	  hql.append(" LEFT JOIN FETCH endereco.cidade cidade ");
+	  hql.append(" LEFT JOIN FETCH cidade.estado estado ");
 	  hql.append(" WHERE 1=1 ");
 	  
 	  if(responsaveldto.getNome()!=null && !responsaveldto.getNome().isEmpty()){
@@ -62,6 +65,9 @@ public class ResponsavelDao extends GenericDao<Responsavel>{
 	  }
 	  if(responsaveldto.getTelFix()!=null && !responsaveldto.getTelFix().isEmpty()){
 		  hql.append(" AND cont.telFix = :pTel");
+	  }
+	  if(responsaveldto.getEstado()!=null){
+		  hql.append(" AND estado = :pEstado");
 	  }
 	  if(responsaveldto.getCelular()!=null && !responsaveldto.getCelular().isEmpty()){
 		  hql.append(" AND cont.celular = :pCelular ");
@@ -83,6 +89,9 @@ public class ResponsavelDao extends GenericDao<Responsavel>{
 	  }
 	  if(responsaveldto.getCelular()!=null && !responsaveldto.getCelular().isEmpty()){
 		  query.setParameter("pCelular", responsaveldto.getCelular());
+	  }
+	  if(responsaveldto.getEstado()!=null){
+		  query.setParameter("pEstado",responsaveldto.getEstado());
 	  }
 	
 	  return query.list();

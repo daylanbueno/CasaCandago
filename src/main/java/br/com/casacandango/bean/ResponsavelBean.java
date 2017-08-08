@@ -228,6 +228,7 @@ public class ResponsavelBean {
 		if(responsaveis.size()>0){
 			return "Responsavel.xhtml";
 		}else{
+			Messages.addGlobalError("Não foi encontrado registros que atendam os paramentros da pesquisa!");
 			return "";
 		}
 	}
