@@ -2,6 +2,8 @@ package br.com.casacandango.dto;
 
 import java.io.Serializable;
 
+import br.com.casacandango.modelo.Estado;
+
 public class ResponsavelDto implements Serializable {
 	
 	/**
@@ -19,6 +21,8 @@ public class ResponsavelDto implements Serializable {
 	
 	private String email;
 
+	private Estado estado;
+	
 	public String getNome() {
 		return nome;
 	}
@@ -57,6 +61,15 @@ public class ResponsavelDto implements Serializable {
 
 	public void setEmail(String email) {
 		this.email = email;
+	}
+
+	
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public void setEstado(Estado estado) {
+		this.estado = estado;
 	}
 
 	@Override

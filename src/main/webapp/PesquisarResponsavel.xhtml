@@ -43,7 +43,7 @@
 						<p:outputLabel value="Estado:" for="estado"></p:outputLabel>
 						<p:selectOneMenu converter="omnifaces.SelectItemsConverter"
 					       id="estado" requiredMessage="Você deve escolher um estado"
-							value="#{responsavelBean.estado}">
+							value="#{responsavelBean.responsaveldto.estado}">
 							<f:selectItem noSelectionOption="true"
 								itemLabel="Selecione um estado">
 							</f:selectItem>
