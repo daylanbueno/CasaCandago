@@ -42,7 +42,6 @@ public class ResponsavelBean {
 	
 	private ResponsavelDto responsaveldto;
 	
-	
 	public Estado getEstado() {
 		return estado;
 	}
@@ -180,7 +179,6 @@ public class ResponsavelBean {
 			responsavel.setContato(contato);
 			responsaveldao.merge(responsavel);
 			listar();
-			limpar();
 			Messages.addGlobalInfo("Operação efetuada com sucesso");;
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Erro ao salvar o responsável");
@@ -240,6 +238,10 @@ public class ResponsavelBean {
 			Messages.addGlobalError(" Não foi encontrado registros que atendam os paramentros da pesquisa!");
 			return "";
 		}
+	}
+	
+	public void limparFiltro(){
+		responsaveldto = new ResponsavelDto();
 	}
 	
 	
