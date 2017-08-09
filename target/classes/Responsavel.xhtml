@@ -8,42 +8,10 @@
 	<ui:define name="corpoCentro">
 		<h:head>
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-			<title>Responsável</title>
-			<script>
-	// Tradutor do Calendario
-            PrimeFaces.locales['pt'] = {
-                closeText: 'Fechar',
-                prevText: 'Anterior',
-                nextText: 'Próximo',
-                currentText: 'Começo',
-                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
-                weekHeader: 'Semana',
-                firstDay: 0,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: '',
-                timeOnlyTitle: 'Só Horas',
-                timeText: 'Tempo',
-                hourText: 'Hora',
-                minuteText: 'Minuto',
-                secondText: 'Segundo',
-                ampm: false,
-                month: 'Mês',
-                week: 'Semana',
-                day: 'Dia',
-                allDayText: 'Todo o Dia'
-            };
-        </script>
+			<title>Restado da pesquisa de responsáveis</title>
 		</h:head>
-		<p:growl id="messagem" />
-
-		<p:panel header="Filtros da pesquisa">
-			<h:panelGrid columns="4" >
+	   <p:panel  styleClass="forMulario"   id="basic" header="Filtro da pesquisa">
+			<h:panelGrid columns="4" width="500" >
 				<p:outputLabel styleClass="estidoLetra" value="Nome:"/>
 				<p:outputLabel value="#{responsavelBean.responsaveldto.nome}"/>
 				
@@ -57,28 +25,12 @@
 				<p:outputLabel value="#{responsavelBean.responsaveldto.celular}"/>
 				
 				<p:outputLabel styleClass="estidoLetra" value="Estado:"/>
-<!-- 				<p:outputLabel value="#{responsavelBean.responsaveldto.nome}"/> -->
+				<p:outputLabel value="#{responsavelBean.responsaveldto.estado.sigla}"/>
 			</h:panelGrid>
 		</p:panel>	
 		
-		<h:form id="tabela" onmousemove="#{autenticacaoBean.controle()}">
-			<p:panel header="Cadastro de Responsáveis">
-				<p:toolbar id="botoes">
-					<p:toolbarGroup>
-<!-- 						 <p:commandButton  -->
-<!-- 							icon="ui-icon-pencil"  -->
-<!-- 							title="Editar" -->
-<!-- 							oncomplete="PF('responsavelEditar').show()" -->
-<!-- 							disabled="#{responsavelBean.responsavelSelecionado ==null}" -->
-<!-- 							update=":messagem :forResponsavelEditar:painel :tabela" -->
-<!-- 							process="@this" -->
-<!-- 							actionListener="#{responsavelBean.editar()}" -->
-<!-- 							> -->
-<!-- 						 <f:setPropertyActionListener value="#{responsavelBean.responsavelSelecionado}" target="#{responsavelBean.responsavel}" /> -->
-<!-- 						 </p:commandButton> -->
-					</p:toolbarGroup>
-				</p:toolbar>
-
+		<h:form styleClass="dataTable" id="tabela" onmousemove="#{autenticacaoBean.controle()}">
+			<p:panel header="Resultado da pesquisa">
 				<p:dataTable emptyMessage="Nenhum registro encontrado"
 							 value="#{responsavelBean.responsaveis}" 
 							 var="resp" 
@@ -86,19 +38,9 @@
 							 paginatorPosition="bottom"
 		  					 rows="15" 
 		  					 lazy="true"
-		  					 scrollable="true"
-		  					 selectionMode="single"
-							 rowKey="#{resp.codigo}"
-							 resizableColumns="true"
-							 
+		  					 resizableColumns="true"
 							 liveResize="true"
-							 selection="#{responsavelBean.responsavelSelecionado}"
 							 >
-			
-							 
-				<p:ajax  event="rowSelect"     update=":tabela:botoes"></p:ajax>
-			    <p:ajax  event="rowUnselect"   update=":tabela:botoes"></p:ajax>
-		
 					<p:column headerText="Nome" width="300" style="text-align:left">
 						<h:outputText value="#{resp.nome}" />
 					</p:column>
@@ -117,224 +59,20 @@
 						<h:outputText value="#{resp.contato.email}" />
 					</p:column>
 
-					<p:column headerText="Endereço" width="200" style="text-align:left">
-						<h:outputText value="#{resp.endereco.logradouro}" />
+					<p:column headerText="Operações" width="50">
+						<p:button icon="ui-icon-extlink"
+								  title="Detalhar">
+						</p:button>
+						<p:commandButton icon="ui-icon-tag"
+										 title="Alterar"
+										 action="#{responsavelBean.editar(resp)}">
+						</p:commandButton>
 					</p:column>
-
-					<p:column headerText="Número" width="50" style="text-align:left">
-						<h:outputText value="#{resp.endereco.numero}" />
-					</p:column>
-
-					<p:column headerText="Complemento" width="100"
-						style="text-align:left">
-						<h:outputText value="#{resp.endereco.complemento}" />
-					</p:column>
-
-					<p:column headerText="Bairro" width="100" style="text-align:left">
-						<h:outputText value="#{resp.endereco.rua}" />
-					</p:column>
-
-					<p:column headerText="Cidade" width="100" style="text-align:left">
-						<h:outputText value="#{resp.endereco.cidade.nome}" />
-					</p:column>
-
-
-					<p:column headerText="Estado" width="100" style="text-align:left">
-						<h:outputText value="#{resp.endereco.cidade.estado.nome}" />
-					</p:column>
-
 				</p:dataTable>
 
 			</p:panel>
 
 		</h:form>
-
-		<!--  a partir daqui está definido o Dialog de cadastrar o funcinário -->
-
-		<p:dialog header="Responsável" widgetVar="responsavel"
-			draggable="false" resizable="false" modal="true">
-
-			<h:form id="forResponsavel">
-				<h:panelGrid columns="4" id="painel" style="width :100%"
-					margin-top="20px">
-
-					<p:outputLabel value="Nome:" for="nome"></p:outputLabel>
-					<p:inputText maxlength="50" size="40" id="nome" required="true"
-						value="#{responsavelBean.responsavel.nome}"
-						requiredMessage="Preencha o campo nome "></p:inputText>
-
-
-					<p:outputLabel value="CPF:" for="cpf"></p:outputLabel>
-					<p:inputMask mask="999.999.999-99" id="cpf" required="true"
-						value="#{responsavelBean.documento.cpf}"
-						requiredMessage="Preencha o campo CPF"></p:inputMask>
-
-					<p:outputLabel value="RG:" for="rg"></p:outputLabel>
-					<p:inputMask mask="9.999.999" id="rg" required="true"
-						value="#{responsavelBean.documento.rg}"
-						requiredMessage="Preencha o campo rg"></p:inputMask>
-
-					<p:outputLabel value="Fone Fixo:" for="fone"></p:outputLabel>
-					<p:inputMask mask="(99)9999-9999" id="fone" required="true" requiredMessage="Preencha  o campo Fone fixo"
-						value="#{responsavelBean.contato.telFix}"></p:inputMask>
-
-					<p:outputLabel value="Celular:" for="cel"></p:outputLabel>
-					<p:inputMask mask="(99)9999-9999"  id="cel" required="true" requiredMessage="Preencha o campo Celular"
-						value="#{responsavelBean.contato.celular}"></p:inputMask>
-
-					<p:outputLabel value="E-mail:"></p:outputLabel>
-					<p:inputText maxlength="50" size="40"
-						value="#{responsavelBean.contato.email}"></p:inputText>
-
-
-
-					<p:outputLabel value="Logradouro:" for="logradouro" ></p:outputLabel>
-					<p:inputText maxlength="50" size="40" id="logradouro" required="true" requiredMessage="Preecha o campo Logradouro"
-						value="#{responsavelBean.endereco.logradouro}"></p:inputText>
-
-					<p:outputLabel value="Número:"></p:outputLabel>
-					<p:inputText maxlength="50" size="10"
-						value="#{responsavelBean.endereco.numero}"></p:inputText>
-
-					<p:outputLabel value="Complemento:"></p:outputLabel>
-					<p:inputText maxlength="50" size="30"
-						value="#{responsavelBean.endereco.complemento}"></p:inputText>
-
-					<p:outputLabel value="Bairro:" for="bairro"></p:outputLabel>
-					<p:inputText maxlength="50" size="40" id="bairro" required="true" requiredMessage="Preencha o campo Bairro"
-						value="#{responsavelBean.endereco.rua}"></p:inputText>
-
-
-					<p:outputLabel value="Estado:" for="estado"></p:outputLabel>
-					<p:selectOneMenu converter="omnifaces.SelectItemsConverter"
-					required="true" id="estado" requiredMessage="Você deve escolher um estado"
-						value="#{responsavelBean.estado}">
-						<f:selectItem noSelectionOption="true"
-							itemLabel="Selecione um estado">
-						</f:selectItem>
-						<f:selectItems value="#{responsavelBean.estados}" var="estado"
-							itemLabel="#{estado.nome}" itemValue="#{estado}">
-						</f:selectItems>
-						<p:ajax listener="#{responsavelBean.cidadePopular()}"
-							update=":forResponsavel:cidade"></p:ajax>
-					</p:selectOneMenu>
-
-					<p:outputLabel value="Cidade:" for="cidade"></p:outputLabel>
-					<p:selectOneMenu converter="omnifaces.SelectItemsConverter"
-					required="true" requiredMessage="Você deve escolher uma cidade"
-						value="#{responsavelBean.cidade}" id="cidade">
-						<f:selectItem noSelectionOption="true"
-							itemLabel="Selecione uma cidade">
-						</f:selectItem>
-						<f:selectItems value="#{responsavelBean.cidades}" var="cidade"
-							itemLabel="#{cidade.nome}" itemValue="#{cidade}">
-						</f:selectItems>
-					</p:selectOneMenu>
-
-				</h:panelGrid>
-
-				<h:panelGrid columns="2">
-					<p:commandButton value="Salvar"
-						action="#{responsavelBean.salvar()}"
-						update=":messagem :forResponsavel:painel :tabela"></p:commandButton>
-					<p:commandButton value="Fechar" update=":forResponsavel:painel"
-						oncomplete="PF('responsavel').hide()"></p:commandButton>
-				</h:panelGrid>
-
-			</h:form>
-
-		</p:dialog>
-
-
-<!--  a partir daqui está definido o Dialog de editar o responsável -->
-
-		<p:dialog header="Responsável" widgetVar="responsavelEditar"
-			draggable="false" resizable="false" modal="true">
-
-			<h:form id="forResponsavelEditar">
-				<h:panelGrid columns="4" id="painel" style="width :100%"
-					margin-top="20px">
-
-					<p:outputLabel value="Nome:" for="nome"></p:outputLabel>
-					<p:inputText maxlength="50" size="40" id="nome" required="true"
-						value="#{responsavelBean.responsavel.nome}"
-						requiredMessage="Preencha o campo nome "></p:inputText>
-
-
-					<p:outputLabel value="CPF:" for="cpf"></p:outputLabel>
-					<p:inputMask mask="999.999.999-99" id="cpf" required="true"
-						value="#{responsavelBean.responsavel.documento.cpf}"
-						requiredMessage="Preencha o campo CPF"></p:inputMask>
-
-					<p:outputLabel value="RG:" for="rg"></p:outputLabel>
-					<p:inputMask mask="9.999.999" id="rg" required="true"
-						value="#{responsavelBean.responsavel.documento.rg}"
-						requiredMessage="Preencha o campo rg"></p:inputMask>
-
-					<p:outputLabel value="Fone Fixo:" for="fone"></p:outputLabel>
-					<p:inputMask mask="(99)9999-9999" id="fone" required="true" requiredMessage="Preencha  o campo Fone fixo"
-						value="#{responsavelBean.responsavel.contato.telFix}"></p:inputMask>
-
-					<p:outputLabel value="Celular:" for="cel"></p:outputLabel>
-					<p:inputMask mask="(99)9999-9999"  id="cel" required="true" requiredMessage="Preencha o campo Celular"
-						value="#{responsavelBean.responsavel.contato.celular}"></p:inputMask>
-
-					<p:outputLabel value="E-mail:"></p:outputLabel>
-					<p:inputText maxlength="50" size="40"
-						value="#{responsavelBean.responsavel.contato.email}"></p:inputText>
-
-
-
-					<p:outputLabel value="Logradouro:" for="logradouro" ></p:outputLabel>
-					<p:inputText maxlength="50" size="40" id="logradouro" required="true" requiredMessage="Preecha o campo Logradouro"
-						value="#{responsavelBean.responsavel.endereco.logradouro}"></p:inputText>
-
-					<p:outputLabel value="Número:"></p:outputLabel>
-					<p:inputText maxlength="50" size="10"
-						value="#{responsavelBean.responsavel.endereco.numero}"></p:inputText>
-
-					<p:outputLabel value="Complemento:"></p:outputLabel>
-					<p:inputText maxlength="50" size="30"
-						value="#{responsavelBean.responsavel.endereco.complemento}"></p:inputText>
-
-					<p:outputLabel value="Bairro:" for="bairro"></p:outputLabel>
-					<p:inputText maxlength="50" size="40" id="bairro" required="true" requiredMessage="Preencha o campo Bairro"
-						value="#{responsavelBean.responsavel.endereco.rua}"></p:inputText>
-
-
-					<p:outputLabel value="Estado:" for="estado"></p:outputLabel>
-					<p:selectOneMenu converter="omnifaces.SelectItemsConverter"
-					required="true" id="estado" requiredMessage="Você deve escolher um estado"
-						value="#{responsavelBean.responsavel.endereco.cidade.estado}">
-						<f:selectItem noSelectionOption="true"
-							itemLabel="Selecione um estado">
-						</f:selectItem>
-						<f:selectItems value="#{responsavelBean.estados}" var="estado"
-							itemLabel="#{estado.nome}" itemValue="#{estado}">
-						</f:selectItems>
-						
-					</p:selectOneMenu>
-
-
-				</h:panelGrid>
-
-				<h:panelGrid columns="2">
-					<p:commandButton value="Salvar"
-						action="#{responsavelBean.alterarResponsavel()}"
-						update=":messagem :forResponsavelEditar:painel :tabela">
-					</p:commandButton>
-						
-					<p:commandButton value="Fechar" update=":forResponsavelEditar:painel"
-						oncomplete="PF('responsavelEditar').hide()" 
-						process="@this">
-					</p:commandButton>
-					
-				</h:panelGrid>
-
-			</h:form>
-
-		</p:dialog>
-
 
 	</ui:define>
 

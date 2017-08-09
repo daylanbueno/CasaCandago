@@ -158,12 +158,9 @@ public class ResponsavelBean {
 	}
 		
 	public void cidadePopular() {
-
-		//System.out.println("estado " + estado.getCodigo());
 		try {
 			if (estado != null) {
 				cidades = cidadedao.buscarPorEstado(estado.getCodigo());
-			//	System.out.println("cidades carregada");
 			} 
 			
 		} catch (RuntimeException e) {
@@ -192,10 +189,22 @@ public class ResponsavelBean {
 		
 	}
 	
-	public void editar(){
-		carregarEstados();
-		this.responsavel=responsavelSelecionado;
+	public String editar(Responsavel responsavel){
+		carregarEstados(); 
+		preencherDados(responsavel);
+		cidadePopular();
+		return "ResponsavelCadastro.xhtml";
+	}
 	
+	public void  preencherDados(Responsavel responsavel){
+		if(responsavel!=null){			
+			setResponsavel(responsavel);
+			setContato(responsavel.getContato());
+			setDocumento(responsavel.getDocumento());
+			setEstado(responsavel.getEndereco().getCidade().getEstado());
+			setCidade(responsavel.getEndereco().getCidade());
+			setEndereco(responsavel.getEndereco());
+		}
 	}
 	public void carregarEstados(){
 	 estados =	estadodao.listar();
@@ -228,7 +237,7 @@ public class ResponsavelBean {
 		if(responsaveis.size()>0){
 			return "Responsavel.xhtml";
 		}else{
-			Messages.addGlobalError("Não foi encontrado registros que atendam os paramentros da pesquisa!");
+			Messages.addGlobalError(" Não foi encontrado registros que atendam os paramentros da pesquisa!");
 			return "";
 		}
 	}

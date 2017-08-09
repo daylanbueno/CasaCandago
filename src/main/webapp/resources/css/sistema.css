@@ -69,6 +69,14 @@ h1 {
 	margin-bottom: 2%;
 	padding: 5px;
 }
+
+.dataTable{
+	margin-top: 0%;
+	margin-left: 2%;
+	margin-right: 2%;
+	margin-bottom: 1%;
+	padding: 0px;
+}
 td{
 	padding: 4px;
 }

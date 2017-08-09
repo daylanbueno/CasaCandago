@@ -65,9 +65,6 @@ public class ResponsavelDto implements Serializable {
 
 	
 	public Estado getEstado() {
-		if(estado==null){
-			estado = new Estado();
-		}
 		return estado;
 	}
 
@@ -82,6 +79,7 @@ public class ResponsavelDto implements Serializable {
 		result = prime * result + ((celular == null) ? 0 : celular.hashCode());
 		result = prime * result + ((cpf == null) ? 0 : cpf.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((estado == null) ? 0 : estado.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result + ((telFix == null) ? 0 : telFix.hashCode());
 		return result;
@@ -111,6 +109,11 @@ public class ResponsavelDto implements Serializable {
 				return false;
 		} else if (!email.equals(other.email))
 			return false;
+		if (estado == null) {
+			if (other.estado != null)
+				return false;
+		} else if (!estado.equals(other.estado))
+			return false;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
@@ -124,5 +127,5 @@ public class ResponsavelDto implements Serializable {
 		return true;
 	}
 	
-
+	
 }
