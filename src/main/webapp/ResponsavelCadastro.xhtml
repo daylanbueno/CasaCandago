@@ -40,10 +40,7 @@
             };
         </script>
 		</h:head>
-		<p:growl id="messagem" />
-
-
-
+		<p:messages styleClass="message" id="messagem"></p:messages>
 		<!--  a partir daqui está definido o Dialog de cadastrar o funcinário -->
 		 <p:panel  styleClass="forMulario"   id="basic" header="Responsáveis">
 	        <h:form id="forResponsavel">
@@ -105,13 +102,13 @@
 								itemLabel="Selecione um estado">
 							</f:selectItem>
 							<f:selectItems value="#{responsavelBean.estados}" var="estado"
-								itemLabel="#{estado.nome}" itemValue="#{estado}">
+								itemLabel="#{estado.sigla}" itemValue="#{estado}">
 							</f:selectItems>
 							<p:ajax listener="#{responsavelBean.cidadePopular()}"
 								update=":forResponsavel:cidade"></p:ajax>
 						</p:selectOneMenu>
 	
-						<p:outputLabel value="Cidade:" for="cidade"></p:outputLabel>
+						<p:outputLabel value="Municipio:" for="cidade"></p:outputLabel>
 						<p:selectOneMenu converter="omnifaces.SelectItemsConverter"
 						required="true" requiredMessage="Você deve escolher uma cidade"
 							value="#{responsavelBean.cidade}" id="cidade">

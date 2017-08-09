@@ -181,7 +181,7 @@ public class ResponsavelBean {
 			responsaveldao.merge(responsavel);
 			listar();
 			limpar();
-			Messages.addGlobalInfo("Salvo com sucesso");;
+			Messages.addGlobalInfo("Operação efetuada com sucesso");;
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Erro ao salvar o responsável");
 			e.printStackTrace();
