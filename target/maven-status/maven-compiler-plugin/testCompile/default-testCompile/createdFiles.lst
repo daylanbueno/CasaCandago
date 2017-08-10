@@ -1,8 +1,0 @@
-br\com\casacandango\dao\HibernateUtilTest.class
-br\com\casacandango\dao\FuncionarioDaoTest.class
-br\com\casacandango\dao\UsuarioDaoTest.class
-br\com\casacandango\dao\IdosoDaoTest.class
-br\com\casacandango\dao\FormacaoDaoTest.class
-br\com\casacandango\dao\CidadeDaoTest.class
-br\com\casacandango\dao\PermissaoDaoTest.class
-br\com\casacandango\dao\ResponsavelDaoTest.class

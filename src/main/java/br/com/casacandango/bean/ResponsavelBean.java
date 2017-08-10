@@ -42,6 +42,13 @@ public class ResponsavelBean {
 	
 	private ResponsavelDto responsaveldto;
 	
+	public boolean iniciar(){
+		limpar();
+		limparFiltro();
+		return true;
+	}
+	
+	
 	public Estado getEstado() {
 		return estado;
 	}
@@ -179,6 +186,8 @@ public class ResponsavelBean {
 			responsavel.setContato(contato);
 			responsaveldao.merge(responsavel);
 			listar();
+			limpar();
+			carregarEstados();
 			Messages.addGlobalInfo("Operação efetuada com sucesso");;
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Erro ao salvar o responsável");
@@ -191,6 +200,7 @@ public class ResponsavelBean {
 		carregarEstados(); 
 		preencherDados(responsavel);
 		cidadePopular();
+		limparFiltro();
 		return "ResponsavelCadastro.xhtml";
 	}
 	
@@ -218,7 +228,7 @@ public class ResponsavelBean {
 		
 	}
 	
-	@PostConstruct 
+    @PostConstruct
 	public void listar(){
 		try {
 			carregarEstados();

@@ -6,53 +6,9 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="corpoCentro">
-	
-		 <p:ajaxStatus style="display:block;margin-bottom:2em;height:18px;">
-		    <f:facet name="default">
-		        <h:outputText value="Status: StandBy" />
-		    </f:facet>
-		    <f:facet name="start">
-		        <p:graphicImage styleClass="status" library="images" name="status.gif" />
-		    </f:facet>
-		    <f:facet name="complete">
-		        <h:outputText value="Status: Completed" />
-		    </f:facet>
-		</p:ajaxStatus>
-     	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-	
 		<h:head>
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-
-			<title>Responsável</title>
-			<script>
-	// Tradutor do Calendario
-            PrimeFaces.locales['pt'] = {
-                closeText: 'Fechar',
-                prevText: 'Anterior',
-                nextText: 'Próximo',
-                currentText: 'Começo',
-                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
-                weekHeader: 'Semana',
-                firstDay: 0,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: '',
-                timeOnlyTitle: 'Só Horas',
-                timeText: 'Tempo',
-                hourText: 'Hora',
-                minuteText: 'Minuto',
-                secondText: 'Segundo',
-                ampm: false,
-                month: 'Mês',
-                week: 'Semana',
-                day: 'Dia',
-                allDayText: 'Todo o Dia'
-            };
-        </script>
+			<title>Cadastro de Responável</title>
 		</h:head>
 		<p:messages styleClass="message" id="messagem"></p:messages>
 		<!--  a partir daqui está definido o Dialog de cadastrar o funcinário -->
@@ -119,7 +75,9 @@
 								itemLabel="#{estado.sigla}" itemValue="#{estado}">
 							</f:selectItems>
 							<p:ajax listener="#{responsavelBean.cidadePopular()}"
-								update=":forResponsavel:cidade"></p:ajax>
+									update=":forResponsavel:cidade"
+									>
+							</p:ajax>
 						</p:selectOneMenu>
 	
 						<p:outputLabel value="Municipio:" for="cidade"></p:outputLabel>

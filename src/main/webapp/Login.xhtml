@@ -9,14 +9,8 @@
 	<h:head>
 
 		 <p:ajaxStatus style="display:block;margin-bottom:2em;height:18px;">
-		    <f:facet name="default">
-		        <h:outputText value="Status: StandBy" />
-		    </f:facet>
 		    <f:facet name="start">
-		        <p:graphicImage styleClass="status" library="images" name="status.gif" />
-		    </f:facet>
-		    <f:facet name="complete">
-		        <h:outputText value="Status: Completed" />
+		        <p:graphicImage style="margin-left: 39%;margin-top:3%;" styleClass="status" library="images" name="status.gif" />
 		    </f:facet>
 		</p:ajaxStatus>
      	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />

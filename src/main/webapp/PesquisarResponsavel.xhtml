@@ -6,11 +6,8 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="corpoCentro">
-	
+		<p:messages styleClass="message" id="messagem"></p:messages>
 		<p:ajaxStatus style="display:block;margin-bottom:2em;height:18px;">
-		    <f:facet name="default">
-		        <h:outputText value="Status: StandBy" />
-		    </f:facet>
 		    <f:facet name="start">
 		        <p:graphicImage styleClass="status" library="images" name="status.gif" />
 		    </f:facet>
@@ -24,9 +21,6 @@
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 			<title>Pesquisar responsável</title>
 		</h:head>
-		<p:growl id="messagem" />
-
-		<!--  a partir daqui está definido o Dialog de cadastrar o funcinário -->
 		 <p:panel  styleClass="forMulario"   id="basic" header="Filtro da pesquisa">
 	        <h:form id="forResponsavel">
 					<h:panelGrid columns="4" id="painel" style="width :100%"
@@ -71,7 +65,7 @@
 	
 					<h:panelGrid styleClass="botoesFiltro" columns="2" style="margin-right:">
 						<p:commandButton value="Pesquisar"
-										 ajax="false"	
+										 ajax="true"	
 										 action="#{responsavelBean.findResponsavelByFilter()}">
 						 </p:commandButton>
 						<p:commandButton action="#{responsavelBean.limparFiltro()}" 

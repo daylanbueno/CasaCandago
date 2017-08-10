@@ -62,8 +62,13 @@
 			<div class="ui-grid-col-1">
 				<h:form>
 					<p:menubar style="width:60px">
-						<p:menuitem icon="ui-icon-extlink  " value="Sair" style="width: 50px"
-						 action="#{autenticacaoBean.sair()}"></p:menuitem>
+						<p:menuitem 
+							icon="ui-icon-extlink"
+							ajax="false"
+							process="@this" 
+							value="Sair" style="width: 50px"
+							actionListener="#{autenticacaoBean.sair()}">
+						</p:menuitem>
 					</p:menubar>
 				</h:form>
 			</div>		
@@ -78,13 +83,14 @@
         </p:submenu>
 
          <p:submenu label="Funcionário">
-            <p:menuitem value="Incluir" url="#"/>
+            <p:menuitem value="Incluir" outcome="Funcionario.xhtml"/>
             <p:menuitem value="Consultar" url="#"/>
         </p:submenu>
         
          <p:submenu label="Responsável">
-            <p:menuitem value="Incluir"  outcome="ResponsavelCadastro.xhtml"/>
-            <p:menuitem value="Consultar" outcome="PesquisarResponsavel.xhtml"/>
+            <p:menuitem value="Incluir" action="#{responsavelBean.iniciar()}" outcome="ResponsavelCadastro.xhtml">
+            </p:menuitem>
+            <p:menuitem value="Consultar" actionListener="#{responsavelBean.iniciar()}" outcome="PesquisarResponsavel.xhtml"/>
         </p:submenu>
         
          <p:submenu label="Idoso">
