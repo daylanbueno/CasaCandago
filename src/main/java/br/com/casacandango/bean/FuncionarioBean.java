@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -25,7 +26,7 @@ import br.com.casacandango.modelo.Funcionario;
 
 @SuppressWarnings("serial")
 @ManagedBean
-@ViewScoped
+@ApplicationScoped
 public class FuncionarioBean implements Serializable {
 
 	private Cidade cidade = new Cidade();
@@ -216,7 +217,6 @@ public class FuncionarioBean implements Serializable {
 		limpar();
 		getDataHoje();
 		try {
-		
 			estados = estadodao.listar();
 			cargos = cargodao.listar();
 		} catch (RuntimeException e) {

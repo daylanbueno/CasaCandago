@@ -7,9 +7,73 @@
 
 	<ui:define name="corpoCentro">
 	
+	<p:ajaxStatus style="display:block;margin-bottom:2em;height:18px;">
+		    <f:facet name="start">
+		        <p:graphicImage styleClass="status" style="margin-left: 5%;" library="images" name="status.gif" />
+		    </f:facet>
+		    <f:facet name="complete">
+		        <h:outputText value="Status: Completed" />
+		    </f:facet>
+		</p:ajaxStatus>
+     <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
 	
-	<p:panel ha></p:panel>
-
+	
+	<p:panel styleClass="detalharDados"   id="basic" header="Detalhes do reponsável">
+		<h:form>
+				<h:graphicImage
+						style="width: 200px; margin-left: 274px
+		        		;margin-top: 70px"
+						library="images" name="logoSemOpacidade.png">
+				</h:graphicImage>
+				<div style="margin-left: 260px">
+					<h1>Dados do Responsável</h1>
+				</div>
+		
+				<h:panelGrid styleClass="detalharForm"  columns="4">
+				 
+				 <p:outputLabel styleClass="estidoLetra" value="Nome:"/>
+				 <p:outputLabel value="#{responsavelBean.responsavel.nome}"/>
+				
+				 <p:outputLabel styleClass="estidoLetra" value="CPF:"/>
+				 <p:outputLabel value="#{responsavelBean.responsavel.documento.cpf}"/>
+				
+				 <p:outputLabel styleClass="estidoLetra" value="Rg:"/>
+				 <p:outputLabel value="#{responsavelBean.responsavel.documento.rg}"/>
+				  
+				 <p:outputLabel styleClass="estidoLetra" value="Celular:"/>
+				 <p:outputLabel value="#{responsavelBean.responsavel.contato.celular}"/>
+				 
+				 <p:outputLabel styleClass="estidoLetra" value="Telefone:"/>
+				 <p:outputLabel value="#{responsavelBean.responsavel.contato.telFix}"/>
+		
+				 <p:outputLabel styleClass="estidoLetra" value="Email:"/>
+				 <p:outputLabel value="#{responsavelBean.responsavel.contato.email}"/>
+				   
+				 <p:outputLabel styleClass="estidoLetra" value="Estado:"/>
+				 <p:outputLabel value="#{responsavelBean.responsavel.endereco.cidade.estado.sigla}"/>
+				 
+				 <p:outputLabel styleClass="estidoLetra" value="Municpio:"/>
+				 <p:outputLabel value="#{responsavelBean.responsavel.endereco.cidade.nome}"/>
+				 
+				 <p:outputLabel styleClass="estidoLetra" value="Logradouro:"/>
+				 <p:outputLabel value="#{responsavelBean.responsavel.endereco.logradouro}"/>
+				 
+				 <p:outputLabel styleClass="estidoLetra" value="Número:"/>
+				 <p:outputLabel value="#{responsavelBean.responsavel.endereco.numero}"/>
+				 
+				 <p:outputLabel styleClass="estidoLetra" value="Complemento:"/>
+				 <p:outputLabel value="#{responsavelBean.responsavel.endereco.numero}"/>
+				       
+				</h:panelGrid>
+				
+		
+				<h:panelGrid styleClass="bVoltar" columns="3">
+					<p:button outcome="Responsavel" value="voltar"/>
+					<p:button outcome="PesquisarResponsavel" value="Pesquisar"/>
+					<p:commandButton action="#{responsavelBean.editar(responsavelBean.responsavel)}" value="Alterar"></p:commandButton>
+				</h:panelGrid>
+		</h:form>		
+	</p:panel>
 	</ui:define>
 
 </ui:composition>

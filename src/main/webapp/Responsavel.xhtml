@@ -9,7 +9,7 @@
 	
 		 <p:ajaxStatus style="display:block;margin-bottom:2em;height:18px;">
 		    <f:facet name="start">
-		        <p:graphicImage styleClass="status" library="images" name="status.gif" />
+		        <p:graphicImage styleClass="status" style="margin-left: 1%;" library="images" name="status.gif" />
 		    </f:facet>
 		</p:ajaxStatus>
      	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
@@ -68,9 +68,10 @@
 					</p:column>
 
 					<p:column headerText="Operações" width="50">
-						<p:button icon="ui-icon-extlink"
+						<p:commandButton icon="ui-icon-extlink"
+								  action="#{responsavelBean.detalharResponsavel(resp)}"
 								  title="Detalhar">
-						</p:button>
+						</p:commandButton>
 						<p:commandButton icon="ui-icon-tag"
 										 title="Alterar"
 										 action="#{responsavelBean.editar(resp)}">

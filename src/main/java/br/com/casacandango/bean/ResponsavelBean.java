@@ -214,6 +214,12 @@ public class ResponsavelBean {
 			setEndereco(responsavel.getEndereco());
 		}
 	}
+	
+	public String detalharResponsavel(Responsavel responsavel){
+		preencherDados(responsavel);
+		return "DetalharResponsavel.xhtml";
+	}
+	
 	public void carregarEstados(){
 	 estados =	estadodao.listar();
 	}
