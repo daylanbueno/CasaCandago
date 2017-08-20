@@ -40,7 +40,7 @@
             };
         </script>
 		</h:head>
-		<p:growl id="messagem" />
+		<p:messages styleClass="message" id="messagem" closable="true"/>
 		
 		<!--  a partir daqui está definido o Dialog de cadastrar o funcinário -->
 		  <p:panel  styleClass="forMulario"   id="basic" header="Incluir Funcionário">
@@ -129,14 +129,18 @@
 					<p:inputText maxlength="50" size="10"
 						value="#{funcionarioBean.endereco.numero}"></p:inputText>
 
+					<p:outputLabel value="Bairro:">
+					</p:outputLabel>
+					<p:inputText maxlength="50" 
+								 size="40"
+								 value="#{funcionarioBean.endereco.rua}">
+					</p:inputText>
+
 					<p:outputLabel value="Complemento:"></p:outputLabel>
 					<p:inputText maxlength="50" size="30"
 						value="#{funcionarioBean.endereco.complemento}"></p:inputText>
 
-					<p:outputLabel value="Bairro:"></p:outputLabel>
-					<p:inputText maxlength="50" size="40"
-						value="#{funcionarioBean.endereco.rua}"></p:inputText>
-
+					
 
 					<p:outputLabel value="Estado:"></p:outputLabel>
 					<p:selectOneMenu converter="omnifaces.SelectItemsConverter"
@@ -169,13 +173,7 @@
 						action="#{funcionarioBean.salvar()}"
 						update=":messagem :forFuncionario:painel">
 					</p:commandButton>
-						
-					<p:commandButton value="Pesquisar"
-						action="#{funcionarioBean.listaCombos()}"
-						update=":forFuncionario:painel"
-						process="@this"
-						oncomplete="PF('funcionario').hide()">
-					</p:commandButton>
+					<p:button value="Pesquisar"  outcome="PesquisarResponsavel" ></p:button>
 				</h:panelGrid>
 
 			</h:form>

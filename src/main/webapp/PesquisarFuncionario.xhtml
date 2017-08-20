@@ -1,0 +1,79 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpoCentro">
+		<p:messages styleClass="message" id="messagem"></p:messages>
+		<p:ajaxStatus style="display:block;margin-bottom:2em;height:18px;">
+		    <f:facet name="start">
+		        <p:graphicImage styleClass="status"  library="images" name="status.gif" />
+		    </f:facet>
+		    <f:facet name="complete">
+		        <h:outputText value="Status: Completed" />
+		    </f:facet>
+		</p:ajaxStatus>
+     	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+	
+		<h:head>
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<title>Pesquisar Funcionário</title>
+		</h:head>
+		 <p:panel  styleClass="forMulario"   id="basic" header="Filtro da pesquisa">
+	        <h:form id="forFuncionario">
+					<h:panelGrid columns="4" id="painel" style="width :100%"
+						margin-top="20px">
+	
+						<p:outputLabel value="Nome:" for="nome"></p:outputLabel>
+						<p:inputText maxlength="50" size="40" id="nome" required="false"
+							value="#{funcionarioBean.funcionariodto.nome}"
+							requiredMessage="Preencha o campo nome "></p:inputText>
+	
+	
+						<p:outputLabel value="CPF:" for="cpf"></p:outputLabel>
+						<p:inputMask mask="999.999.999-99" id="cpf"
+							value="#{funcionarioBean.funcionariodto.cpf}"
+							requiredMessage="Preencha o campo CPF"></p:inputMask>
+	
+	
+						<p:outputLabel value="Fone Fixo:" for="fone"></p:outputLabel>
+						<p:inputMask mask="(99)9999-9999" id="fone" required="false" requiredMessage="Preencha  o campo Fone fixo"
+							value="#{funcionarioBean.funcionariodto.telFix}"></p:inputMask>
+	
+						<p:outputLabel value="Celular:" for="cel"></p:outputLabel>
+						<p:inputMask mask="(99)9999-9999"  id="cel" required="false" requiredMessage="Preencha o campo Celular"
+							value="#{funcionarioBean.funcionariodto.celular}"></p:inputMask>
+	
+						<p:outputLabel value="Estado:" for="estado"></p:outputLabel>
+						<p:selectOneMenu converter="omnifaces.SelectItemsConverter"
+					       id="estado" requiredMessage="Você deve escolher um estado"
+							value="#{funcionarioBean.funcionariodto.estado}">
+							<f:selectItem noSelectionOption="true"
+								itemLabel="Selecione um estado">
+							</f:selectItem>
+							<f:selectItems value="#{funcionarioBean.estados}" var="estado"
+								itemLabel="#{estado.sigla}" itemValue="#{estado}">
+							</f:selectItems>
+						</p:selectOneMenu>
+	
+					</h:panelGrid>
+	
+					<h:panelGrid styleClass="botoesFiltro" columns="2" style="margin-right:">
+						<p:commandButton value="Pesquisar"
+										 ajax="true"	
+										 action="#{funcionarioBean.findFuncionarioByFilter()}">
+						 </p:commandButton>
+						<p:commandButton action="#{funcionarioBean.limparFiltro()}" 
+										 ajax="false"
+										 value="Limpar">
+												 	
+						</p:commandButton>
+					</h:panelGrid>
+	
+				</h:form>
+  		 </p:panel>
+	</ui:define>
+
+</ui:composition>

@@ -1,0 +1,88 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="corpoCentro">
+	
+		 <p:ajaxStatus style="display:block;margin-bottom:2em;height:18px;">
+		    <f:facet name="start">
+		        <p:graphicImage styleClass="status" style="margin-left: 1%;" library="images" name="status.gif" />
+		    </f:facet>
+		</p:ajaxStatus>
+     	<p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+	
+		<h:head>
+			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+			<title>Restado da pesquisa de funconsáveis</title>
+		</h:head>
+	   <p:panel  styleClass="forMulario"   id="basic" header="Filtro da pesquisa">
+			<h:panelGrid columns="4" width="500" >
+				<p:outputLabel styleClass="estidoLetra" value="Nome:"/>
+				<p:outputLabel value="#{funcionarioBean.funcionariodto.nome}"/>
+				
+				<p:outputLabel styleClass="estidoLetra"  value="CPF:"/>
+				<p:outputLabel value="#{funcionarioBean.funcionariodto.cpf}"/>
+				
+				<p:outputLabel styleClass="estidoLetra"  value="Telefone:"/>
+				<p:outputLabel value="#{funcionarioBean.funcionariodto.telFix}"/>
+				
+				<p:outputLabel styleClass="estidoLetra" value="Celular:"/>
+				<p:outputLabel value="#{funcionarioBean.funcionariodto.celular}"/>
+				
+				<p:outputLabel styleClass="estidoLetra" value="Estado:"/>
+				<p:outputLabel value="#{funcionarioBean.funcionariodto.estado.sigla}"/>
+			</h:panelGrid>
+		</p:panel>	
+		
+		<h:form styleClass="dataTable" id="tabela" onmousemove="#{autenticacaoBean.controle()}">
+			<p:panel header="Resultado da pesquisa">
+				<p:dataTable emptyMessage="Nenhum registro encontrado"
+							 value="#{funcionarioBean.funcionarios}" 
+							 var="func" 
+							 paginator="true"
+							 paginatorPosition="bottom"
+		  					 rows="15" 
+		  					 lazy="true"
+		  					 resizableColumns="true"
+							 liveResize="true"
+							 >
+					<p:column headerText="Nome" width="300" style="text-align:left">
+						<h:outputText value="#{func.nome}" />
+					</p:column>
+
+
+					<p:column headerText="Telefone" width="100" style="text-align:left">
+						<h:outputText value="#{func.contato.telFix}" />
+					</p:column>
+
+					<p:column headerText="Celular" width="100" style="text-align:left">
+						<h:outputText value="#{func.contato.celular}" />
+					</p:column>
+
+
+					<p:column headerText="Email" width="250" style="text-align:left">
+						<h:outputText value="#{func.contato.email}" />
+					</p:column>
+
+					<p:column headerText="Operações" width="50">
+						<p:commandButton icon="ui-icon-extlink"
+								  action="#"
+								  title="Detalhar">
+						</p:commandButton>
+						<p:commandButton icon="ui-icon-tag"
+										 title="Alterar"
+										 action="#">
+						</p:commandButton>
+					</p:column>
+				</p:dataTable>
+
+			</p:panel>
+
+		</h:form>
+
+	</ui:define>
+
+</ui:composition>

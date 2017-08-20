@@ -16,6 +16,7 @@ import br.com.casacandango.dao.CargoDao;
 import br.com.casacandango.dao.CidadeDao;
 import br.com.casacandango.dao.EstadoDao;
 import br.com.casacandango.dao.FuncionarioDao;
+import br.com.casacandango.dto.FuncionarioDTO;
 import br.com.casacandango.modelo.Cargo;
 import br.com.casacandango.modelo.Cidade;
 import br.com.casacandango.modelo.Contato;
@@ -46,6 +47,7 @@ public class FuncionarioBean implements Serializable {
 	private FuncionarioDao funcionariodao = new FuncionarioDao();
 	private Funcionario funcionario = new Funcionario();
 	private List<Funcionario> funcionarios = new ArrayList<>();
+	private FuncionarioDTO funcionariodto = new FuncionarioDTO();
 
 	public FuncionarioBean() {
 		listarFuncionario();
@@ -179,6 +181,14 @@ public class FuncionarioBean implements Serializable {
 		this.cidadedao = cidadedao;
 	}
 
+	public FuncionarioDTO getFuncionariodto() {
+		return funcionariodto;
+	}
+
+	public void setFuncionariodto(FuncionarioDTO funcionariodto) {
+		this.funcionariodto = funcionariodto;
+	}
+
 	public void cidadePopular() {
 
 		System.out.println("estado " + estado.getCodigo());
@@ -212,7 +222,7 @@ public class FuncionarioBean implements Serializable {
 
 	}
 
-	@PostConstruct
+
 	public void listaCombos() {
 		limpar();
 		getDataHoje();
@@ -251,7 +261,7 @@ public class FuncionarioBean implements Serializable {
 
 	@PostConstruct
 	public void listarFuncionario() {
-	
+		listaCombos();
 		try {
 			System.out.println("caregou a lista de funcionarioS");
 			this.funcionarios = funcionariodao.listarAtivos();
@@ -338,10 +348,23 @@ public class FuncionarioBean implements Serializable {
 		
 	}
 	
+	public String findFuncionarioByFilter(){
+			setFuncionarios(funcionariodao.findFuncionarioByFilter(getFuncionariodto()));
+			if(getFuncionarios().size()>0){
+				return"ResultadoPesquisarFuncionario.xhtml";
+			}else{
+				Messages.addGlobalError(" Não foi encontrado registros que atendam os paramentros da pesquisa!");
+				return "";
+			}
+	}
+	
 	// metodo que pega a data de hoje
 	@PostConstruct
 	public Date getDataHoje(){
 		return new Date();
 	}
 
+	public void limparFiltro(){
+		funcionariodto = new FuncionarioDTO();
+	}
 }
