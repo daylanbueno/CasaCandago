@@ -6,7 +6,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 	<ui:define name="corpoCentro">
-		<p:messages styleClass="message" id="messagem"></p:messages>
+		<p:messages styleClass="message" id="messagem" closable="true"></p:messages>
 		<p:ajaxStatus style="display:block;margin-bottom:2em;height:18px;">
 		    <f:facet name="start">
 		        <p:graphicImage styleClass="status"  library="images" name="status.gif" />
@@ -46,7 +46,7 @@
 						<p:inputMask mask="(99)9999-9999"  id="cel" required="false" requiredMessage="Preencha o campo Celular"
 							value="#{funcionarioBean.funcionariodto.celular}"></p:inputMask>
 	
-						<p:outputLabel value="Estado:" for="estado"></p:outputLabel>
+						<p:outputLabel value="Nasc: no estado:" for="estado"></p:outputLabel>
 						<p:selectOneMenu converter="omnifaces.SelectItemsConverter"
 					       id="estado" requiredMessage="Você deve escolher um estado"
 							value="#{funcionarioBean.funcionariodto.estado}">
