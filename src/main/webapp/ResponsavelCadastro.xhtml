@@ -10,7 +10,10 @@
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 			<title>Cadastro de Responável</title>
 		</h:head>
-		<p:messages styleClass="message" id="messagem"></p:messages>
+		 <p:messages styleClass="message" 
+					 closable="true"
+					 id="messagem">
+		 </p:messages>
 		<!--  a partir daqui está definido o Dialog de cadastrar o funcinário -->
 		 <p:panel  styleClass="forMulario"   id="basic" header="Responsáveis">
 	        <h:form id="forResponsavel">
@@ -94,11 +97,23 @@
 	
 					</h:panelGrid>
 	
-					<h:panelGrid columns="2" styleClass="botoesalvar">
+					<h:panelGrid id="botoes" columns="3" styleClass="botoesalvar">
+						<p:commandButton value="Novo"
+							disabled="#{!responsavelBean.isSalvo()}"
+							action="#{responsavelBean.novo()}"
+							update="@form"
+							process="@this">
+						</p:commandButton>
+						
 						<p:commandButton value="Salvar"
+							disabled="#{responsavelBean.isSalvo()}"
 							action="#{responsavelBean.salvar()}"
-							update=":messagem :forResponsavel:painel"></p:commandButton>
-						<p:button value="Pesquisar"  outcome="PesquisarFuncionario" ></p:button>
+							update=":messagem :forResponsavel:painel :forResponsavel:botoes ">
+						</p:commandButton>
+						
+						<p:button value="Pesquisar" 
+								  outcome="PesquisarResponsavel" >
+						</p:button>
 					</h:panelGrid>
 	
 				</h:form>

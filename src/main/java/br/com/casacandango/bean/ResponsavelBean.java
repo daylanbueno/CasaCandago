@@ -39,6 +39,7 @@ public class ResponsavelBean {
 	private Contato contato = new Contato();
 	private Endereco endereco = new Endereco();
 	private Documento documento  = new Documento();
+	private boolean isSalvo = false;
 	
 	private ResponsavelDto responsaveldto;
 	
@@ -130,7 +131,15 @@ public class ResponsavelBean {
 		this.responsaveldao = responsaveldao;
 	}
 	
-		
+	public boolean isSalvo() {
+		return isSalvo;
+	}
+	
+	public void setSalvo(boolean isSalvo) {
+		this.isSalvo = isSalvo;
+	}
+
+
 	public List<Responsavel> getResponsaveis() {
 		return responsaveis;
 	}
@@ -177,7 +186,7 @@ public class ResponsavelBean {
 	}
 
 	
-	public void salvar(){
+	public String salvar(){
 		try {
 			cidade.setEstado(estado);
 			endereco.setCidade(cidade);
@@ -186,14 +195,21 @@ public class ResponsavelBean {
 			responsavel.setContato(contato);
 			responsaveldao.merge(responsavel);
 			listar();
-			limpar();
+			setSalvo(true);
 			carregarEstados();
 			Messages.addGlobalInfo("Operação efetuada com sucesso");;
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Erro ao salvar o responsável");
 			e.printStackTrace();
 		}
+		return "ResponsavelCadastro.xhtml";
 		
+	}
+	public String novo(){
+		limpar();
+		setSalvo(false);
+		listar();
+		return "ResponsavelCadastro.xhtml";
 	}
 	
 	public String editar(Responsavel responsavel){
@@ -201,6 +217,7 @@ public class ResponsavelBean {
 		preencherDados(responsavel);
 		cidadePopular();
 		limparFiltro();
+		setSalvo(false);
 		return "ResponsavelCadastro.xhtml";
 	}
 	
