@@ -24,6 +24,7 @@ import br.com.casacandango.modelo.Documento;
 import br.com.casacandango.modelo.Endereco;
 import br.com.casacandango.modelo.Estado;
 import br.com.casacandango.modelo.Funcionario;
+import br.com.casacandango.modelo.Responsavel;
 
 @SuppressWarnings("serial")
 @ManagedBean
@@ -48,6 +49,7 @@ public class FuncionarioBean implements Serializable {
 	private Funcionario funcionario = new Funcionario();
 	private List<Funcionario> funcionarios = new ArrayList<>();
 	private FuncionarioDTO funcionariodto = new FuncionarioDTO();
+	private boolean isSalvo = false; 
 
 	public FuncionarioBean() {
 		listarFuncionario();
@@ -188,6 +190,15 @@ public class FuncionarioBean implements Serializable {
 	public void setFuncionariodto(FuncionarioDTO funcionariodto) {
 		this.funcionariodto = funcionariodto;
 	}
+	
+	
+	public boolean isSalvo() {
+		return isSalvo;
+	}
+
+	public void setSalvo(boolean isSalvo) {
+		this.isSalvo = isSalvo;
+	}
 
 	public void cidadePopular() {
 
@@ -251,12 +262,25 @@ public class FuncionarioBean implements Serializable {
 			funcionariodao.merge(funcionario);
 			listarFuncionario();
 			listaCombos();
+			setSalvo(true);
 			Messages.addGlobalInfo("Salvo com sucesso!!");
 		} catch (RuntimeException e) {
 			Messages.addGlobalError("Erro ao salvar o funcionário");
+			setSalvo(false);
 			e.printStackTrace();
 		}
 
+	}
+	public void  preencherDados(Funcionario funcionario){
+		if(funcionario!=null){
+			setFuncionario(funcionario);
+			setContato(funcionario.getContato());
+			setDocumento(funcionario.getDocumento());
+			setEstado(funcionario.getEndereco().getCidade().getEstado());
+			setCidade(funcionario.getEndereco().getCidade());
+			setEndereco(funcionario.getEndereco());
+			setCargo(funcionario.getCargo());
+		}
 	}
 
 	@PostConstruct
@@ -272,7 +296,13 @@ public class FuncionarioBean implements Serializable {
 		}
 	}
 	
+	public String novo(){
+		limpar();
+		setSalvo(false);
+		return "FuncionarioCadastro.xhtml";
+	}
 	
+
 //------------------------------------------------------------------------------------------------------------/
 	public void alterarFunc(){
 			funcionario.setAtivo(true);
@@ -290,22 +320,15 @@ public class FuncionarioBean implements Serializable {
 	}
 	
 //------------------------------------------------------------------------------------------------------------//
-	public void editar(){
+	public String editar(Funcionario funcionario){
 		listaCombos();
-		try {
-			this.funcionario=funcionarioSelecionado;
-			estado = estadodao.buscar(funcionario.getEndereco().getCidade().getEstado().getCodigo());
-			estados  = estadodao.listar();
-			cidades =cidadedao.buscarPorEstado(estado.getCodigo());
-			
-		} catch (Exception erro) {
-			Messages.addGlobalError("Erro ao carregar  a lista de editar");
-		}
-	
+		limparFiltro();
+		preencherDados(funcionario);
+		setSalvo(true);
+		return "FuncionarioCadastro.xhtml";
 	}
 
-	
-//------------------------------------------------------------------------------------------------------------//
+	//------------------------------------------------------------------------------------------------------------//
 	
 	public void demitir(){
 		funcionario.setDataDemissao(getDataHoje());
