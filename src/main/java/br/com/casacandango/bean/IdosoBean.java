@@ -387,4 +387,6 @@ public class IdosoBean {
 		return new Date();
 	}
 
+	
+	
 }
