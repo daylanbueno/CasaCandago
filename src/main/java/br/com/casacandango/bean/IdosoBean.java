@@ -354,7 +354,7 @@ public class IdosoBean {
 	}
 		
 //--------------------------------------------------------------------------------------------------------------------------------------------------
-	@PostConstruct
+
 	public void listar() {
 		try {
 			idosos = idosodao.listarAtivos();
@@ -367,7 +367,7 @@ public class IdosoBean {
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------
-		@PostConstruct
+	
 		public void listarTodos() {
 			try {
 				idososTodos= idosodao.listar();
