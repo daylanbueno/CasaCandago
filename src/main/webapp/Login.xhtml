@@ -1,11 +1,12 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+<ui:composition template="/WEB-INF/template/LayoutPadraoLogin.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
 
 	<h:outputStylesheet library="css" name="sistema.css"></h:outputStylesheet>
+	 <ui:define name="corpoCentro">
 	<h:head>
 
 		 <p:ajaxStatus style="display:block;margin-bottom:2em;height:18px;">
@@ -17,11 +18,10 @@
      	
 		<h:body>
 		<!--  -->
-			<p:growl id="mensagem"/>
-				<p:dialog header="Entre com usuário e senha" closable="false"
-				draggable="false" resizable="false" modal="true" visible="true">
+			<p:messages id="mensagem"/>
 				<h:form>
-					<h:panelGrid columns="2" styleClass="grid-login">
+					<h:panelGrid columns="1" styleClass="grid-login" width="400px">
+						<h1>Bem-vindo ao Casa do Candango </h1>
 						<p:outputLabel for="login" value="Usuário: " />
 						<p:inputText id="login" size="30" requiredMessage="O usuário 
 						é obrigatório." required="true" value="#{autenticacaoBean.usuario.login}"/>
@@ -31,11 +31,12 @@
 						required="true" value="#{autenticacaoBean.usuario.senha}"/>
 						
 						<h:panelGroup/>
-						<p:commandButton value="Enviar" update=":mensagem" 
+		 				<p:commandButton value="Efetuar Login" update=":mensagem" 
 						actionListener="#{autenticacaoBean.autenticar()}"/>
 					</h:panelGrid>
 				</h:form>
-				</p:dialog>
+		
 		</h:body>
 	</h:head>
-</html>
+ </ui:define>
+</ui:composition>

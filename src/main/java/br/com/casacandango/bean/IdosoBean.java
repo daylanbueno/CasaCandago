@@ -241,7 +241,6 @@ public class IdosoBean {
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------
 	
-	@PostConstruct
 	public void grauInstrucao() {
 		try {
 			formacoes = formacaodao.listar();
@@ -267,7 +266,7 @@ public class IdosoBean {
 
 	@PostConstruct
 	public void listarCombos() {
-
+		getDataHoje();
 		try {
 			grauInstrucao();
 			cidades = cidadedao.listar();
@@ -354,7 +353,7 @@ public class IdosoBean {
 	}
 		
 //--------------------------------------------------------------------------------------------------------------------------------------------------
-
+	
 	public void listar() {
 		try {
 			idosos = idosodao.listarAtivos();
@@ -367,7 +366,6 @@ public class IdosoBean {
 	}
 
 //--------------------------------------------------------------------------------------------------------------------------------------------------
-	
 		public void listarTodos() {
 			try {
 				idososTodos= idosodao.listar();
@@ -382,7 +380,7 @@ public class IdosoBean {
 	
 //-----------------------------------------------------------------------------------------------------------------------------
 	// metodo que pega a data de hoje
-	@PostConstruct
+	
 	public Date getDataHoje(){
 		return new Date();
 	}

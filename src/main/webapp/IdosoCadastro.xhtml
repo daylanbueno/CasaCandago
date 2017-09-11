@@ -10,16 +10,13 @@
 			<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 
 			<title>Idoso</title>
-
-
 		</h:head>
-		<p:growl id="messagem" />
+		<p:messages id="messagem" ></p:messages>
 
 
     <p:panel  styleClass="forMulario"   id="basic" header="Idosos">
 	
-		<h:form styleClass="forMulario" id="forIdoso" onmousemove="#{autenticacaoBean.controle()}">
-			
+		<h:form id="forIdoso" onmousemove="#{autenticacaoBean.controle()}">
 			
 				<h:panelGrid columns="4" id="painel" style="width :100%"
 					margin-top="20px">
@@ -27,9 +24,9 @@
 					<p:outputLabel value="Nome" for="nome"></p:outputLabel>
 					<p:inputText maxlength="50" size="40" id="nome" required="true"
 						value="#{idosoBean.idoso.nome}"
-						requiredMessage="Preencha o campo nome"></p:inputText>
-
-
+						requiredMessage="Preencha o campo nome">
+					</p:inputText>
+					
 					<p:outputLabel value="Nome do Pai:" for="nomep"></p:outputLabel>
 					<p:inputText maxlength="50" size="40" id="nomep" required="true"
 						value="#{idosoBean.idoso.nomePai}"
