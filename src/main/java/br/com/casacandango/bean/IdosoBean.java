@@ -16,6 +16,7 @@ import br.com.casacandango.dao.EstadoDao;
 import br.com.casacandango.dao.FormacaoDao;
 import br.com.casacandango.dao.IdosoDao;
 import br.com.casacandango.dao.ResponsavelDao;
+import br.com.casacandango.dto.IdosoDTO;
 import br.com.casacandango.modelo.Cidade;
 import br.com.casacandango.modelo.Documento;
 import br.com.casacandango.modelo.Estado;
@@ -52,7 +53,8 @@ public class IdosoBean {
 
 	Documento documento = new Documento();
 	DocumentoDao documentodao = new DocumentoDao();
-	
+
+	private IdosoDTO idosoDto;
 	private String idosoBucar;
 	
 	public Idoso getIdosoSelecionado() {
@@ -218,9 +220,17 @@ public class IdosoBean {
 	public void setIdososTodos(List<Idoso> idososTodos) {
 		this.idososTodos = idososTodos;
 	}
-
+	
 //--------------------------------------------------------------------------------------------------------------------------------------------------
 			
+	public IdosoDTO getIdosoDto() {
+		return idosoDto;
+	}
+
+	public void setIdosoDto(IdosoDTO idosoDto) {
+		this.idosoDto = idosoDto;
+	}
+
 	public void cidadePopular() {
 
 		System.out.println("estado " + estado.getCodigo());
